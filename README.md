@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3drizei · Backoffice
 
-## Getting Started
+Painel de gestão para o ateliê de impressão 3D personalizada **3drizei**. Concentra
+pedidos (kanban de produção), produtos com variações, clientes, despesas,
+precificação e um dashboard de faturamento e lucro real. A loja pública (`(loja)`)
+virá numa segunda etapa.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + **React 19** + **TypeScript**
+- **Tailwind CSS 4** (CSS-first via `@theme`) + **shadcn/ui**, tematizados com os
+  tokens do `design-system/` (paleta terracota/cobre/clay, fontes Fredoka /
+  Nunito Sans / Space Mono, sombras quentes, motivo de _layer lines_)
+- **Supabase** (Postgres, Auth, Storage, RLS) via `@supabase/ssr`
+- **TanStack Query** (kanban reativo) + **@dnd-kit** (drag-and-drop)
+- **react-hook-form** + **Zod** nos formulários
+- **Vitest** nos testes do motor de precificação
+
+## Pré-requisitos
+
+- Node 20+ e **pnpm**
+- Um projeto Supabase (este repo usa o ref `ltwsfidikqoqxfliusgd`)
+
+## Configuração
+
+1. Instale as dependências:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Crie o `.env.local` (veja `.env.example`):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://ltwsfidikqoqxfliusgd.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> Só a chave **publishable** (segura para o browser) é necessária — o admin opera
+> com a sessão do próprio usuário e a RLS cuida do acesso.
 
-## Learn More
+3. Banco de dados: as migrations em `supabase/migrations/` já foram aplicadas no
+   projeto Supabase. Para um ambiente novo, aplique-as na ordem (CLI do Supabase
+   ou SQL editor). Para regenerar os tipos após mudanças no schema:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm db:types
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Crie o usuário admin:
+   - No painel do Supabase: **Authentication → Users → Add user** (email + senha).
+     Isso cria o `profile` automaticamente com role `customer`.
+   - Promova a conta a admin:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sql
+update public.profiles set role = 'admin'
+where id = (select id from auth.users where email = 'SEU_EMAIL');
+```
 
-## Deploy on Vercel
+5. Rode o servidor de desenvolvimento:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Acesse [http://localhost:3000/admin](http://localhost:3000/admin) (a raiz redireciona
+para `/admin`).
+
+## Scripts
+
+| Comando | Descrição |
+| --- | --- |
+| `pnpm dev` | Servidor de desenvolvimento |
+| `pnpm build` | Build de produção |
+| `pnpm start` | Sobe o build de produção |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm test` | Testes (Vitest) |
+| `pnpm db:types` | Gera `lib/database.types.ts` a partir do schema |
+
+## Estrutura
+
+```
+app/
+  admin/
+    login/                # login branded + server actions de auth
+    (dashboard)/          # área protegida (guarda de role no layout)
+      page.tsx            # dashboard (faturamento, lucro real, ticket médio)
+      pedidos/            # kanban + criar/editar pedido
+      produtos/           # CRUD de produtos + variações
+      clientes/           # CRUD de clientes + histórico
+      despesas/           # CRUD de despesas
+      calculadora/        # calculadora de preço avulsa
+      configuracoes/      # materiais + parâmetros de preço (versionados)
+components/
+  admin/                  # componentes do backoffice
+  brand/                  # logo / marca
+  ui/                     # shadcn/ui
+lib/
+  supabase/               # clients SSR (server, browser) + sessão
+  data/                   # acesso a dados por domínio
+  pricing/                # motor de precificação (função pura + testes)
+  pedido-status.ts        # estágios do kanban + rótulos
+  database.types.ts       # tipos gerados do Supabase
+supabase/migrations/      # schema versionado (RLS, triggers, buckets)
+design-system/            # material de referência da marca (não buildado)
+proxy.ts                  # proteção de rota /admin (ex-middleware)
+```
+
+## Conceitos importantes
+
+- **Dinheiro em centavos**: todos os valores monetários são `integer` (centavos)
+  no banco e no código — sem float.
+- **Precificação versionada**: `pricing_settings` guarda versões; cada pedido/variação
+  registra a versão usada, então mudanças de parâmetro não alteram cálculos antigos.
+- **Snapshots no pedido**: `pedido_itens` congela preço, custo e breakdown no momento
+  da venda.
+- **Histórico automático**: mover um card no kanban grava em `pedido_historico` via
+  trigger no banco.
+- **Segurança**: RLS em todas as tabelas (admin total via `private.is_admin()`),
+  proteção de rota no `proxy.ts` e guarda de role no layout do dashboard.
+
+## Roadmap
+
+- [ ] Loja pública `(loja)` (catálogo, carrinho, checkout)
+- [ ] Integração de pagamento (Mercado Pago)
+- [ ] Frete (Melhor Envio)
+- [ ] E-mails transacionais (Resend)

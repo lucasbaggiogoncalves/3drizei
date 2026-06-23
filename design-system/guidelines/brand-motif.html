@@ -1,0 +1,19 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Layer-line motif" subtitle="Extrusion-layer texture & warm gradient — print DNA" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--surface-card); display: flex; gap: 18px; }
+  .panel { flex: 1; height: 130px; border-radius: var(--radius-xl); display: flex; align-items: flex-end; padding: 14px; box-shadow: var(--shadow-sm); }
+  .lines { background: var(--clay-100); background-image: var(--layerlines); }
+  .warm { background: var(--gradient-warm); }
+  .cream { background: var(--gradient-cream); border: 1px solid var(--border-subtle); }
+  .tag { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .tag.on { color: #fff; }
+  .tag.off { color: var(--text-muted); }
+</style></head>
+<body>
+  <div class="panel lines"><span class="tag off">layer-lines</span></div>
+  <div class="panel warm"><span class="tag on">gradient-warm</span></div>
+  <div class="panel cream"><span class="tag off">gradient-cream</span></div>
+</body></html>

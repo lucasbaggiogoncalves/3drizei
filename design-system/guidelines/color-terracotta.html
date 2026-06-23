@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Terracotta scale" subtitle="Primary — 50→900, 500 is the brand action color" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); }
+  .scale { display: grid; grid-template-columns: repeat(10, 1fr); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .step { height: 72px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; font-family: var(--font-mono); font-size: 10px; }
+  .step.tag::after { content: "500"; position: absolute; margin-bottom: 26px; font-weight: 700; }
+  .lbl { margin-top: 10px; font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); display: grid; grid-template-columns: repeat(10, 1fr); text-align: center; }
+</style></head>
+<body>
+  <div class="scale">
+    <div class="step" style="background:var(--terracotta-50)"></div>
+    <div class="step" style="background:var(--terracotta-100)"></div>
+    <div class="step" style="background:var(--terracotta-200)"></div>
+    <div class="step" style="background:var(--terracotta-300)"></div>
+    <div class="step" style="background:var(--terracotta-400)"></div>
+    <div class="step" style="background:var(--terracotta-500);color:#fff;font-weight:700">500</div>
+    <div class="step" style="background:var(--terracotta-600);color:#fff"></div>
+    <div class="step" style="background:var(--terracotta-700);color:#fff"></div>
+    <div class="step" style="background:var(--terracotta-800);color:#fff"></div>
+    <div class="step" style="background:var(--terracotta-900);color:#fff"></div>
+  </div>
+  <div class="lbl"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span></div>
+</body></html>

@@ -1,0 +1,92 @@
+<!-- @dsCard group="Storefront" viewport="1280x880" name="Storefront — loja 3drizei" subtitle="Interactive: home → catálogo → produto → sacola" -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3drizei · Loja</title>
+<link rel="icon" href="../../assets/logo-badge-512.png">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  html, body { margin: 0; background: var(--surface-page); }
+  #app { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="data.js"></script>
+<script type="text/babel" src="parts.jsx"></script>
+<script type="text/babel" src="screens.jsx"></script>
+<script type="text/babel">
+const { Header, Footer } = window;
+const { Home, Catalog, Product, CartDrawer } = window;
+
+function Toast({ toast }) {
+  if (!toast) return null;
+  return (
+    <div style={{
+      position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 120,
+      background: 'var(--clay-950)', color: '#fff', padding: '12px 20px', borderRadius: 'var(--radius-pill)',
+      boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', gap: 10,
+      fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15,
+    }}>
+      <i data-lucide="check-circle" style={{ width: 18, height: 18, color: 'var(--terracotta-300)' }}></i>
+      {toast}
+    </div>
+  );
+}
+
+function App() {
+  const products = window.STORE_PRODUCTS;
+  const [route, setRoute] = React.useState('home');
+  const [current, setCurrent] = React.useState(null);
+  const [cart, setCart] = React.useState([]);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [liked, setLiked] = React.useState(new Set());
+  const [toast, setToast] = React.useState(null);
+
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+  React.useEffect(() => { window.scrollTo(0, 0); }, [route, current]);
+
+  const flash = (msg) => { setToast(msg); clearTimeout(window.__t); window.__t = setTimeout(() => setToast(null), 2200); };
+
+  const addToCart = (p, qty = 1) => {
+    setCart((c) => {
+      const key = p.id;
+      const ex = c.find((it) => it.key === key);
+      if (ex) return c.map((it) => it.key === key ? { ...it, qty: it.qty + qty } : it);
+      return [...c, { key, p, qty }];
+    });
+    flash('Adicionado à sacola');
+  };
+  const setQty = (key, n) => setCart((c) => c.map((it) => it.key === key ? { ...it, qty: n } : it));
+  const removeItem = (key) => setCart((c) => c.filter((it) => it.key !== key));
+  const toggleLike = (id) => setLiked((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  const openProduct = (p) => { setCurrent(p); setRoute('product'); };
+  const nav = (to) => { setRoute(to); if (to !== 'product') setCurrent(null); };
+
+  const cartCount = cart.reduce((s, it) => s + it.qty, 0);
+
+  return (
+    <div>
+      <Header cartCount={cartCount} onCart={() => setCartOpen(true)} onNav={nav} active={route} />
+      {route === 'home' && <Home products={products} onOpen={openProduct} onAdd={addToCart} onShop={() => nav('catalog')} liked={liked} onLike={toggleLike} />}
+      {route === 'catalog' && <Catalog products={products} onOpen={openProduct} onAdd={addToCart} liked={liked} onLike={toggleLike} />}
+      {route === 'product' && current && <Product p={current} onBack={() => nav('catalog')} onAdd={(p, q) => { addToCart(p, q); setCartOpen(true); }} />}
+      <Footer />
+      <CartDrawer open={cartOpen} items={cart} onClose={() => setCartOpen(false)} onQty={setQty} onRemove={removeItem} />
+      <Toast toast={toast} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+setTimeout(() => window.lucide && window.lucide.createIcons(), 120);
+</script>
+</body>
+</html>

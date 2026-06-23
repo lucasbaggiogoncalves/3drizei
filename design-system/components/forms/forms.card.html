@@ -1,0 +1,48 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Forms — Input, Select, Checkbox, Switch, Stepper" subtitle="Order & personalization inputs" -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { margin: 0; padding: 24px 26px; background: var(--surface-card); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; max-width: 640px; }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+  svg { width: 18px; height: 18px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Input, Textarea, Checkbox, Switch, QuantityStepper } = window.Ds3drizeiDesignSystem_046328;
+const Ic = ({n}) => <i data-lucide={n}></i>;
+
+function Demo() {
+  return (
+    <div className="grid">
+      <div className="stack">
+        <Input label="Seu nome" placeholder="Como devo gravar?" leftIcon={<Ic n="user"/>} />
+        <Input label="E-mail" defaultValue="oi@" error="E-mail incompleto" />
+        <div style={{display:'flex',gap:16,alignItems:'center'}}>
+          <span style={{fontFamily:'var(--font-display)',fontWeight:600,fontSize:14}}>Quantidade</span>
+          <QuantityStepper defaultValue={2} />
+        </div>
+      </div>
+      <div className="stack">
+        <Textarea label="O que personalizar?" hint="Nome, data ou frase curta" rows={3} defaultValue="Para a Lara, 2 anos" />
+        <Checkbox label="Embrulhar para presente" defaultChecked />
+        <Switch label="Quero acompanhar a produção" defaultChecked />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+setTimeout(() => window.lucide && window.lucide.createIcons(), 80);
+</script>
+</body>
+</html>

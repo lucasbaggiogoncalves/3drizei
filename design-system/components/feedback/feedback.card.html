@@ -1,0 +1,49 @@
+<!-- @dsCard group="Components" viewport="700x320" name="Feedback — Alert, Rating" subtitle="Status messages & reviews" -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { margin: 0; padding: 24px 26px; background: var(--surface-card); }
+  .stack { display: flex; flex-direction: column; gap: 14px; max-width: 560px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-subtle); margin: 6px 0 2px; }
+  svg { width: 18px; height: 18px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Alert, RatingStars } = window.Ds3drizeiDesignSystem_046328;
+const Ic = ({n}) => <i data-lucide={n}></i>;
+
+function Demo() {
+  return (
+    <div className="stack">
+      <Alert tone="success" title="Pedido recebido!" icon={<Ic n="check-circle"/>} onClose={()=>{}}>
+        Você acompanha cada etapa da produção pelo nosso Instagram.
+      </Alert>
+      <Alert tone="brand" title="Personalização confirmada" icon={<Ic n="sparkles"/>}>
+        Gravaremos “Para a Lara, 2 anos” na base da peça.
+      </Alert>
+      <Alert tone="warning" title="Prazo de produção" icon={<Ic n="clock"/>}>
+        Peças sob encomenda levam de 5 a 7 dias úteis.
+      </Alert>
+      <div className="lbl">Rating</div>
+      <div style={{display:'flex',gap:24,alignItems:'center'}}>
+        <RatingStars value={4.9} count={128} />
+        <RatingStars value={5} size={22} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+setTimeout(() => window.lucide && window.lucide.createIcons(), 80);
+</script>
+</body>
+</html>

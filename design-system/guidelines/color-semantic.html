@@ -1,0 +1,21 @@
+<!-- @dsCard group="Colors" viewport="700x190" name="Semantic colors" subtitle="Status colors, muted to sit in the earthy palette" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .item { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .bar { height: 60px; display:flex; align-items:center; padding-left:14px; color:#fff; font-family: var(--font-display); font-weight:600; font-size:14px; }
+  .soft { height: 30px; }
+  .meta { padding: 8px 12px; }
+  .hex { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="item"><div class="bar" style="background:var(--success-500)">Success</div><div class="soft" style="background:var(--success-50)"></div><div class="meta"><div class="hex">#5B8A3C</div></div></div>
+    <div class="item"><div class="bar" style="background:var(--warning-500)">Warning</div><div class="soft" style="background:var(--warning-50)"></div><div class="meta"><div class="hex">#D9930A</div></div></div>
+    <div class="item"><div class="bar" style="background:var(--danger-500)">Danger</div><div class="soft" style="background:var(--danger-50)"></div><div class="meta"><div class="hex">#B3261E</div></div></div>
+    <div class="item"><div class="bar" style="background:var(--info-500)">Info</div><div class="soft" style="background:var(--info-50)"></div><div class="meta"><div class="hex">#2E6E7E</div></div></div>
+  </div>
+</body></html>

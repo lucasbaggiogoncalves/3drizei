@@ -1,26 +1,294 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   3drizei — brand tokens (sampled from the printed badge)
+   Warm, earthy, handcrafted. Shadows are brown-tinted, never
+   blue-grey. Radii are generous to echo a filleted 3D print.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand anchors */
+  --brand-terracotta: #c2440f;
+  --brand-copper: #94411f;
+  --brand-ink: #1b1714;
+  --brand-cream: #f3e6db;
+
+  /* Terracotta (primary) */
+  --terracotta-50: #fbeee7;
+  --terracotta-100: #f7d8c7;
+  --terracotta-200: #eeb298;
+  --terracotta-300: #e48c68;
+  --terracotta-400: #d96b3f;
+  --terracotta-500: #c2440f;
+  --terracotta-600: #ac3b0d;
+  --terracotta-700: #8c300b;
+  --terracotta-800: #6e2709;
+  --terracotta-900: #561e08;
+
+  /* Copper (secondary / bronze accents) */
+  --copper-50: #f6ede8;
+  --copper-100: #ead2c4;
+  --copper-200: #d3a589;
+  --copper-300: #bc7b54;
+  --copper-400: #a65a30;
+  --copper-500: #94411f;
+  --copper-600: #7e371a;
+  --copper-700: #642b14;
+  --copper-800: #4c210f;
+  --copper-900: #38180b;
+
+  /* Clay neutrals (warm greys: cream -> charcoal) */
+  --clay-50: #fbf5ef;
+  --clay-100: #f3e6db;
+  --clay-200: #e7d4c5;
+  --clay-300: #d5bca8;
+  --clay-400: #b79c86;
+  --clay-500: #927a66;
+  --clay-600: #6f5c4c;
+  --clay-700: #4f4138;
+  --clay-800: #332b25;
+  --clay-900: #221c18;
+  --clay-950: #1b1714;
+
+  /* Semantic (muted to sit inside the earthy palette) */
+  --success-50: #ecf3e7;
+  --success-500: #5b8a3c;
+  --success-700: #3e6228;
+  --warning-50: #fbf0da;
+  --warning-500: #d9930a;
+  --warning-700: #9e6a05;
+  --danger-50: #f9e3df;
+  --danger-500: #b3261e;
+  --danger-700: #841912;
+  --info-50: #e3eef0;
+  --info-500: #2e6e7e;
+  --info-700: #1e4c57;
+
+  /* Warm brown-tinted elevation */
+  --shadow-warm-xs: 0 1px 2px rgba(45, 28, 18, 0.06);
+  --shadow-warm-sm: 0 1px 3px rgba(45, 28, 18, 0.08), 0 1px 2px rgba(45, 28, 18, 0.06);
+  --shadow-warm-md: 0 4px 10px rgba(45, 28, 18, 0.1), 0 2px 4px rgba(45, 28, 18, 0.06);
+  --shadow-warm-lg: 0 12px 26px rgba(45, 28, 18, 0.12), 0 4px 8px rgba(45, 28, 18, 0.07);
+  --shadow-warm-xl: 0 24px 50px rgba(45, 28, 18, 0.16), 0 8px 16px rgba(45, 28, 18, 0.08);
+  --shadow-brand: 0 8px 22px rgba(194, 68, 15, 0.28);
+
+  /* Layer-line motif — echoes 3D-print extrusion layers */
+  --layerlines: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 5px,
+    rgba(148, 65, 31, 0.06) 5px,
+    rgba(148, 65, 31, 0.06) 6px
+  );
+  --gradient-warm: linear-gradient(135deg, var(--terracotta-500) 0%, var(--copper-500) 100%);
+  --gradient-cream: linear-gradient(180deg, var(--clay-50) 0%, var(--clay-100) 100%);
+
+  /* ---------- shadcn semantic mapping ---------- */
+  --radius: 0.75rem;
+
+  --background: var(--clay-50);
+  --foreground: var(--clay-950);
+  --card: #ffffff;
+  --card-foreground: var(--clay-950);
+  --popover: #ffffff;
+  --popover-foreground: var(--clay-950);
+
+  --primary: var(--terracotta-500);
+  --primary-foreground: #fff6f0;
+  --secondary: var(--clay-100);
+  --secondary-foreground: var(--clay-800);
+
+  --muted: var(--clay-100);
+  --muted-foreground: var(--clay-600);
+  --accent: var(--terracotta-50);
+  --accent-foreground: var(--terracotta-700);
+  --destructive: var(--danger-500);
+
+  --border: var(--clay-200);
+  --input: var(--clay-300);
+  --ring: var(--terracotta-400);
+
+  --chart-1: var(--terracotta-500);
+  --chart-2: var(--copper-500);
+  --chart-3: var(--success-500);
+  --chart-4: var(--warning-500);
+  --chart-5: var(--info-500);
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--clay-800);
+  --sidebar-primary: var(--terracotta-500);
+  --sidebar-primary-foreground: #fff6f0;
+  --sidebar-accent: var(--terracotta-50);
+  --sidebar-accent-foreground: var(--terracotta-700);
+  --sidebar-border: var(--clay-200);
+  --sidebar-ring: var(--terracotta-400);
 }
 
+.dark {
+  --background: var(--clay-950);
+  --foreground: var(--clay-100);
+  --card: var(--clay-900);
+  --card-foreground: var(--clay-100);
+  --popover: var(--clay-900);
+  --popover-foreground: var(--clay-100);
+  --primary: var(--terracotta-400);
+  --primary-foreground: var(--clay-950);
+  --secondary: var(--clay-800);
+  --secondary-foreground: var(--clay-100);
+  --muted: var(--clay-800);
+  --muted-foreground: var(--clay-400);
+  --accent: var(--clay-800);
+  --accent-foreground: var(--terracotta-200);
+  --destructive: #e06a5f;
+  --border: rgba(243, 230, 219, 0.12);
+  --input: rgba(243, 230, 219, 0.16);
+  --ring: var(--terracotta-400);
+  --sidebar: var(--clay-900);
+  --sidebar-foreground: var(--clay-100);
+  --sidebar-primary: var(--terracotta-400);
+  --sidebar-primary-foreground: var(--clay-950);
+  --sidebar-accent: var(--clay-800);
+  --sidebar-accent-foreground: var(--terracotta-200);
+  --sidebar-border: rgba(243, 230, 219, 0.12);
+  --sidebar-ring: var(--terracotta-400);
+}
+
+/* Expose brand ramps + fonts as Tailwind utilities (bg-terracotta-500, text-clay-600, font-heading, ...) */
 @theme inline {
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+  --font-heading: var(--font-fredoka), var(--font-nunito), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+
+  /* shadcn semantic tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+
+  --color-terracotta-50: var(--terracotta-50);
+  --color-terracotta-100: var(--terracotta-100);
+  --color-terracotta-200: var(--terracotta-200);
+  --color-terracotta-300: var(--terracotta-300);
+  --color-terracotta-400: var(--terracotta-400);
+  --color-terracotta-500: var(--terracotta-500);
+  --color-terracotta-600: var(--terracotta-600);
+  --color-terracotta-700: var(--terracotta-700);
+  --color-terracotta-800: var(--terracotta-800);
+  --color-terracotta-900: var(--terracotta-900);
+
+  --color-copper-50: var(--copper-50);
+  --color-copper-100: var(--copper-100);
+  --color-copper-200: var(--copper-200);
+  --color-copper-300: var(--copper-300);
+  --color-copper-400: var(--copper-400);
+  --color-copper-500: var(--copper-500);
+  --color-copper-600: var(--copper-600);
+  --color-copper-700: var(--copper-700);
+  --color-copper-800: var(--copper-800);
+  --color-copper-900: var(--copper-900);
+
+  --color-clay-50: var(--clay-50);
+  --color-clay-100: var(--clay-100);
+  --color-clay-200: var(--clay-200);
+  --color-clay-300: var(--clay-300);
+  --color-clay-400: var(--clay-400);
+  --color-clay-500: var(--clay-500);
+  --color-clay-600: var(--clay-600);
+  --color-clay-700: var(--clay-700);
+  --color-clay-800: var(--clay-800);
+  --color-clay-900: var(--clay-900);
+  --color-clay-950: var(--clay-950);
+
+  --color-success-50: var(--success-50);
+  --color-success-500: var(--success-500);
+  --color-success-700: var(--success-700);
+  --color-warning-50: var(--warning-50);
+  --color-warning-500: var(--warning-500);
+  --color-warning-700: var(--warning-700);
+  --color-danger-50: var(--danger-50);
+  --color-danger-500: var(--danger-500);
+  --color-danger-700: var(--danger-700);
+  --color-info-50: var(--info-50);
+  --color-info-500: var(--info-500);
+  --color-info-700: var(--info-700);
+
+  --shadow-warm-sm: var(--shadow-warm-sm);
+  --shadow-warm-md: var(--shadow-warm-md);
+  --shadow-warm-lg: var(--shadow-warm-lg);
+  --shadow-warm-xl: var(--shadow-warm-xl);
+  --shadow-brand: var(--shadow-brand);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Mono "eyebrow" label — wide-tracked uppercase, like the badge descriptor */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
+  color: var(--clay-500);
+}
+
+/* The signature 3D-print layer-line texture */
+@utility layerlines {
+  background-image: var(--layerlines);
+}
+
+@utility bg-gradient-warm {
+  background-image: var(--gradient-warm);
 }

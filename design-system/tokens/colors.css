@@ -1,0 +1,107 @@
+/* ============================================================
+   3drizei · COLOR TOKENS
+   Palette extracted directly from the brand badge:
+   terracotta orange, copper-bronze, warm charcoal, cream clay.
+   Warm, earthy, handcrafted — built for emotional, tactile products.
+   ============================================================ */
+
+:root {
+  /* ---------- Brand anchors (sampled from the logo) ---------- */
+  --brand-terracotta: #C2440F; /* the vivid burnt-orange "3d" */
+  --brand-copper:     #94411F; /* the bronze gift mark */
+  --brand-ink:        #1B1714; /* warm near-black "rizei" */
+  --brand-cream:      #F3E6DB; /* the clay plaque surface */
+
+  /* ---------- Terracotta (primary) ---------- */
+  --terracotta-50:  #FBEEE7;
+  --terracotta-100: #F7D8C7;
+  --terracotta-200: #EEB298;
+  --terracotta-300: #E48C68;
+  --terracotta-400: #D96B3F;
+  --terracotta-500: #C2440F; /* PRIMARY */
+  --terracotta-600: #AC3B0D;
+  --terracotta-700: #8C300B;
+  --terracotta-800: #6E2709;
+  --terracotta-900: #561E08;
+
+  /* ---------- Copper (secondary / bronze accents) ---------- */
+  --copper-50:  #F6EDE8;
+  --copper-100: #EAD2C4;
+  --copper-200: #D3A589;
+  --copper-300: #BC7B54;
+  --copper-400: #A65A30;
+  --copper-500: #94411F; /* SECONDARY */
+  --copper-600: #7E371A;
+  --copper-700: #642B14;
+  --copper-800: #4C210F;
+  --copper-900: #38180B;
+
+  /* ---------- Clay neutrals (warm greys from cream → charcoal) ---------- */
+  --clay-50:  #FBF5EF;
+  --clay-100: #F3E6DB; /* brand cream */
+  --clay-200: #E7D4C5;
+  --clay-300: #D5BCA8;
+  --clay-400: #B79C86;
+  --clay-500: #927A66;
+  --clay-600: #6F5C4C;
+  --clay-700: #4F4138;
+  --clay-800: #332B25;
+  --clay-900: #221C18;
+  --clay-950: #1B1714; /* brand ink */
+
+  /* ---------- Semantic (muted to sit inside the earthy palette) ---------- */
+  --success-50:  #ECF3E7;
+  --success-500: #5B8A3C;
+  --success-700: #3E6228;
+
+  --warning-50:  #FBF0DA;
+  --warning-500: #D9930A;
+  --warning-700: #9E6A05;
+
+  --danger-50:   #F9E3DF;
+  --danger-500:  #B3261E;
+  --danger-700:  #841912;
+
+  --info-50:     #E3EEF0;
+  --info-500:    #2E6E7E;
+  --info-700:    #1E4C57;
+
+  /* ============================================================
+     SEMANTIC ALIASES  — reach for these in product code
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page:     var(--clay-50);
+  --surface-card:     #FFFFFF;
+  --surface-raised:   #FFFFFF;
+  --surface-sunken:   var(--clay-100);
+  --surface-inverse:  var(--clay-950);
+  --surface-brand:    var(--terracotta-500);
+  --surface-brand-soft: var(--terracotta-50);
+  --surface-accent-soft: var(--copper-50);
+
+  /* Text */
+  --text-strong:    var(--clay-950);
+  --text-body:      var(--clay-800);
+  --text-muted:     var(--clay-600);
+  --text-subtle:    var(--clay-500);
+  --text-on-brand:  #FFF6F0;
+  --text-on-inverse: var(--clay-100);
+  --text-brand:     var(--terracotta-600);
+  --text-link:      var(--terracotta-600);
+
+  /* Borders */
+  --border-subtle:  var(--clay-200);
+  --border-default: var(--clay-300);
+  --border-strong:  var(--clay-400);
+  --border-brand:   var(--terracotta-500);
+
+  /* Interactive (primary action) */
+  --action-bg:        var(--terracotta-500);
+  --action-bg-hover:  var(--terracotta-600);
+  --action-bg-active: var(--terracotta-700);
+  --action-fg:        var(--text-on-brand);
+
+  /* Focus */
+  --focus-ring: var(--terracotta-400);
+}

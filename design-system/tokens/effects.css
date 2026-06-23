@@ -1,0 +1,49 @@
+/* ============================================================
+   3drizei · EFFECTS — shadows, borders, motion, textures
+   Shadows are warm-tinted (brown, not blue-grey) to keep the
+   clay/handmade feel. Motion is soft and gentle, never bouncy.
+   ============================================================ */
+
+:root {
+  /* ---------- Elevation (warm brown-tinted shadows) ---------- */
+  --shadow-xs:  0 1px 2px rgba(45, 28, 18, 0.06);
+  --shadow-sm:  0 1px 3px rgba(45, 28, 18, 0.08), 0 1px 2px rgba(45, 28, 18, 0.06);
+  --shadow-md:  0 4px 10px rgba(45, 28, 18, 0.10), 0 2px 4px rgba(45, 28, 18, 0.06);
+  --shadow-lg:  0 12px 26px rgba(45, 28, 18, 0.12), 0 4px 8px rgba(45, 28, 18, 0.07);
+  --shadow-xl:  0 24px 50px rgba(45, 28, 18, 0.16), 0 8px 16px rgba(45, 28, 18, 0.08);
+
+  /* Brand-tinted glow for primary CTAs on hover */
+  --shadow-brand: 0 8px 22px rgba(194, 68, 15, 0.28);
+
+  /* Inset for pressed / sunken states */
+  --shadow-inset: inset 0 2px 4px rgba(45, 28, 18, 0.10);
+
+  /* ---------- Borders ---------- */
+  --border-width: 1px; /* @kind spacing */
+  --border-width-strong: 2px; /* @kind spacing */
+  --border-hairline: 1px solid var(--border-subtle);
+
+  /* ---------- Focus ring ---------- */
+  --ring-width: 3px; /* @kind spacing */
+  --ring: 0 0 0 var(--ring-width) rgba(217, 107, 63, 0.45);
+
+  /* ---------- Motion ---------- */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.45, 0.05, 0.55, 0.95); /* @kind other */
+  --ease-soft:  cubic-bezier(0.34, 0.85, 0.42, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-base:   200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+
+  /* ---------- Brand gradients & textures ---------- */
+  --gradient-warm: linear-gradient(135deg, var(--terracotta-500) 0%, var(--copper-500) 100%);
+  --gradient-cream: linear-gradient(180deg, var(--clay-50) 0%, var(--clay-100) 100%);
+  /* "Layer-line" motif — echoes 3D-print extrusion layers @kind other */
+  --layerlines: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 5px,
+    rgba(148, 65, 31, 0.06) 5px,
+    rgba(148, 65, 31, 0.06) 6px
+  ); /* @kind other */
+}
