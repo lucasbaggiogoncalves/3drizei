@@ -14,18 +14,20 @@ export type AdminContext = {
  */
 export async function requireAdmin(): Promise<AdminContext> {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  if (!user) {
+  // getClaims() verifica o JWT localmente (sem rede) com chaves assimétricas,
+  // evitando o round-trip do /auth/v1/user a cada carga de página.
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const claims = claimsData?.claims;
+
+  if (!claims?.sub) {
     redirect("/admin/login");
   }
 
   const { data: profile } = await supabase
     .from("profiles")
     .select("role, nome")
-    .eq("id", user.id)
+    .eq("id", claims.sub)
     .single();
 
   if (!profile || profile.role !== "admin") {
@@ -33,8 +35,8 @@ export async function requireAdmin(): Promise<AdminContext> {
   }
 
   return {
-    userId: user.id,
-    email: user.email ?? null,
+    userId: claims.sub,
+    email: typeof claims.email === "string" ? claims.email : null,
     nome: profile.nome,
   };
 }

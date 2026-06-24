@@ -26,10 +26,12 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // IMPORTANTE: não rode código entre createServerClient e getUser().
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // IMPORTANTE: não rode código entre createServerClient e a checagem de auth.
+  // getClaims() valida o JWT localmente (sem round-trip de rede) quando o projeto
+  // usa chaves de assinatura assimétricas; cai para getUser() em chave simétrica.
+  // Também renova a sessão quando o token está perto de expirar.
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const isAuthed = Boolean(claimsData?.claims?.sub);
 
   const { pathname } = request.nextUrl;
   const isAdminArea = pathname.startsWith("/admin");
@@ -37,7 +39,7 @@ export async function updateSession(request: NextRequest) {
 
   // Camada 1 (rota): exige sessão para a área /admin (exceto login).
   // A checagem de role admin é feita no layout do dashboard (camada 2).
-  if (isAdminArea && !isLogin && !user) {
+  if (isAdminArea && !isLogin && !isAuthed) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
     url.searchParams.set("next", pathname);
