@@ -6,10 +6,10 @@ import { Loader2, Save } from "lucide-react";
 import { toast } from "sonner";
 import type { PricingSettingsRow } from "@/lib/data/pricing";
 import { saveSettings } from "@/app/admin/(dashboard)/configuracoes/actions";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { CurrencyInput } from "@/components/admin/currency-input";
+import { NumericInput } from "@/components/admin/numeric-input";
 
 export function SettingsForm({ settings }: { settings: PricingSettingsRow }) {
   const router = useRouter();
@@ -63,23 +63,22 @@ export function SettingsForm({ settings }: { settings: PricingSettingsRow }) {
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="consumo">Consumo da impressora (W)</Label>
-          <Input
+          <NumericInput
             id="consumo"
-            type="number"
-            min={0}
-            value={consumoW || ""}
-            onChange={(e) => setConsumoW(Number(e.target.value))}
+            step="1"
+            suffix="W"
+            value={consumoW || null}
+            onChange={(v) => setConsumoW(v ?? 0)}
           />
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="buffer">Buffer de falha (%)</Label>
-          <Input
+          <NumericInput
             id="buffer"
-            type="number"
-            min={0}
             step="0.5"
-            value={bufferFalha || ""}
-            onChange={(e) => setBufferFalha(Number(e.target.value))}
+            suffix="%"
+            value={bufferFalha || null}
+            onChange={(v) => setBufferFalha(v ?? 0)}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -88,25 +87,22 @@ export function SettingsForm({ settings }: { settings: PricingSettingsRow }) {
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="margem">Margem (%)</Label>
-          <Input
+          <NumericInput
             id="margem"
-            type="number"
-            min={0}
             step="1"
-            value={margem || ""}
-            onChange={(e) => setMargem(Number(e.target.value))}
+            suffix="%"
+            value={margem || null}
+            onChange={(v) => setMargem(v ?? 0)}
           />
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="taxas">Taxas (%)</Label>
-          <Input
+          <NumericInput
             id="taxas"
-            type="number"
-            min={0}
-            max={99.9}
             step="0.5"
-            value={taxas || ""}
-            onChange={(e) => setTaxas(Number(e.target.value))}
+            suffix="%"
+            value={taxas || null}
+            onChange={(v) => setTaxas(v ?? 0)}
           />
           <p className="text-xs text-clay-500">Ex: taxa do Mercado Pago. Embutida no preço.</p>
         </div>

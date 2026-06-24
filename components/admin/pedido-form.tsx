@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CurrencyInput } from "@/components/admin/currency-input";
+import { NumericInput } from "@/components/admin/numeric-input";
 import { ReferenceUploader } from "@/components/admin/reference-uploader";
 
 function variacaoLabel(v: ProdutoParaPedido["variacoes"][number]): string {
@@ -205,11 +206,11 @@ function ItemEditor({
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
         <div className="flex flex-col gap-1.5">
           <Label className="text-xs text-clay-500">Quantidade</Label>
-          <Input
-            type="number"
-            min={1}
-            value={item.quantidade}
-            onChange={(e) => onChange({ quantidade: Number(e.target.value) })}
+          <NumericInput
+            step="1"
+            placeholder="1"
+            value={item.quantidade || null}
+            onChange={(v) => onChange({ quantidade: Math.max(1, v ?? 1) })}
           />
         </div>
         <div className="flex flex-col gap-1.5">

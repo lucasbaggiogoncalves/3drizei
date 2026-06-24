@@ -29,6 +29,7 @@ import { Switch } from "@/components/ui/switch";
 import { FotoUploader } from "@/components/admin/foto-uploader";
 import { PersonalizacaoEditor } from "@/components/admin/personalizacao-editor";
 import { VariacoesEditor, novaVariacao } from "@/components/admin/variacoes-editor";
+import { NumericInput } from "@/components/admin/numeric-input";
 
 function mapVariacao(v: ProdutoComVariacoes["produto_variacoes"][number]): VariacaoInput {
   return {
@@ -165,12 +166,13 @@ export function ProductForm({
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="lead">Prazo de produção (dias)</Label>
-            <Input
+            <NumericInput
               id="lead"
-              type="number"
-              min={0}
-              value={leadTime}
-              onChange={(e) => setLeadTime(Number(e.target.value))}
+              step="1"
+              suffix="dias"
+              placeholder="7"
+              value={leadTime || null}
+              onChange={(v) => setLeadTime(v ?? 0)}
             />
           </div>
           <label className="flex items-end gap-3 pb-2">

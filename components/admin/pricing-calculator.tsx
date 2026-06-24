@@ -7,7 +7,6 @@ import {
   type PricingSettings,
 } from "@/lib/pricing/engine";
 import type { Material } from "@/lib/data/pricing";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -17,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CurrencyInput } from "@/components/admin/currency-input";
+import { NumericInput } from "@/components/admin/numeric-input";
 import { BreakdownView } from "@/components/admin/breakdown-view";
 
 export type CalcInputs = {
@@ -100,37 +100,31 @@ export function PricingCalculator({
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="gramas">Material usado (g)</Label>
-          <Input
+          <NumericInput
             id="gramas"
-            type="number"
-            min={0}
-            step="0.1"
-            value={inputs.gramas || ""}
-            onChange={(e) => set("gramas", Number(e.target.value))}
+            value={inputs.gramas || null}
+            onChange={(v) => set("gramas", v ?? 0)}
+            suffix="g"
           />
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="tempo">Tempo de impressão (h)</Label>
-          <Input
+          <NumericInput
             id="tempo"
-            type="number"
-            min={0}
-            step="0.1"
-            value={inputs.tempoImpressaoH || ""}
-            onChange={(e) => set("tempoImpressaoH", Number(e.target.value))}
+            value={inputs.tempoImpressaoH || null}
+            onChange={(v) => set("tempoImpressaoH", v ?? 0)}
+            suffix="h"
           />
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="pos">Pós-processamento (h)</Label>
-          <Input
+          <NumericInput
             id="pos"
-            type="number"
-            min={0}
-            step="0.1"
-            value={inputs.tempoPosH || ""}
-            onChange={(e) => set("tempoPosH", Number(e.target.value))}
+            value={inputs.tempoPosH || null}
+            onChange={(v) => set("tempoPosH", v ?? 0)}
+            suffix="h"
           />
         </div>
 

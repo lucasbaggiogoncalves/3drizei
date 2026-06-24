@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CurrencyInput } from "@/components/admin/currency-input";
+import { NumericInput } from "@/components/admin/numeric-input";
 
 export function novaVariacao(): VariacaoInput {
   return {
@@ -58,22 +59,7 @@ function NumberField({
   return (
     <div className="flex flex-col gap-1.5">
       <Label className="text-xs text-clay-500">{label}</Label>
-      <div className="relative">
-        <Input
-          type="number"
-          min={0}
-          step={step}
-          value={value ?? ""}
-          onChange={(e) =>
-            onChange(e.target.value === "" ? null : Number(e.target.value))
-          }
-        />
-        {suffix ? (
-          <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-clay-400">
-            {suffix}
-          </span>
-        ) : null}
-      </div>
+      <NumericInput value={value} onChange={onChange} step={step} suffix={suffix} />
     </div>
   );
 }
