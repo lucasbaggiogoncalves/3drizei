@@ -22,9 +22,28 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "3drizei · Backoffice",
+  metadataBase: new URL("https://3drizei.com.br"),
+  title: {
+    default: "3drizei · Impressão 3D personalizada, feita sob encomenda",
+    template: "%s · 3drizei",
+  },
   description:
-    "Backoffice do 3drizei — impressão 3D personalizada, feito com afeto.",
+    "Peças de decoração e presentes em impressão 3D, personalizados e feitos sob encomenda com afeto. Escolha, personalize e acompanhe seu pedido.",
+  keywords: [
+    "impressão 3D",
+    "presentes personalizados",
+    "decoração",
+    "sob encomenda",
+    "3drizei",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "3drizei",
+    title: "3drizei · Impressão 3D personalizada, feita sob encomenda",
+    description:
+      "Peças de decoração e presentes em impressão 3D, personalizados e feitos sob encomenda com afeto.",
+  },
 };
 
 export default function RootLayout({

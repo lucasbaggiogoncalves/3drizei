@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { requireAdmin } from "@/lib/auth";
 import {
   SidebarInset,
@@ -6,6 +7,12 @@ import {
 } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { UserMenu } from "@/components/admin/user-menu";
+
+export const metadata: Metadata = {
+  title: "Backoffice",
+  description:
+    "Backoffice do 3drizei — impressão 3D personalizada, feito com afeto.",
+};
 
 export default async function DashboardLayout({
   children,

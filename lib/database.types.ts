@@ -302,7 +302,21 @@ export type Database = {
             foreignKeyName: "pedido_itens_produto_id_fkey"
             columns: ["produto_id"]
             isOneToOne: false
+            referencedRelation: "loja_produtos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pedido_itens_produto_id_fkey"
+            columns: ["produto_id"]
+            isOneToOne: false
             referencedRelation: "produtos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pedido_itens_variacao_id_fkey"
+            columns: ["variacao_id"]
+            isOneToOne: false
+            referencedRelation: "loja_variacoes"
             referencedColumns: ["id"]
           },
           {
@@ -506,6 +520,13 @@ export type Database = {
             foreignKeyName: "produto_variacoes_produto_id_fkey"
             columns: ["produto_id"]
             isOneToOne: false
+            referencedRelation: "loja_produtos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "produto_variacoes_produto_id_fkey"
+            columns: ["produto_id"]
+            isOneToOne: false
             referencedRelation: "produtos"
             referencedColumns: ["id"]
           },
@@ -582,7 +603,71 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      loja_produtos: {
+        Row: {
+          created_at: string | null
+          descricao: string | null
+          fotos: string[] | null
+          id: string | null
+          lead_time_dias: number | null
+          nome: string | null
+          personalizacao_schema: Json | null
+          slug: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          descricao?: string | null
+          fotos?: string[] | null
+          id?: string | null
+          lead_time_dias?: number | null
+          nome?: string | null
+          personalizacao_schema?: Json | null
+          slug?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          descricao?: string | null
+          fotos?: string[] | null
+          id?: string | null
+          lead_time_dias?: number | null
+          nome?: string | null
+          personalizacao_schema?: Json | null
+          slug?: string | null
+        }
+        Relationships: []
+      }
+      loja_variacoes: {
+        Row: {
+          ativo: boolean | null
+          controla_estoque: boolean | null
+          dim_x_mm: number | null
+          dim_y_mm: number | null
+          dim_z_mm: number | null
+          estoque: number | null
+          id: string | null
+          nome: string | null
+          opcoes: Json | null
+          peso_g: number | null
+          preco_venda_centavos: number | null
+          produto_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "produto_variacoes_produto_id_fkey"
+            columns: ["produto_id"]
+            isOneToOne: false
+            referencedRelation: "loja_produtos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "produto_variacoes_produto_id_fkey"
+            columns: ["produto_id"]
+            isOneToOne: false
+            referencedRelation: "produtos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never
