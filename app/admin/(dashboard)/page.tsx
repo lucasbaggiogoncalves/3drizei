@@ -52,9 +52,9 @@ export default async function DashboardPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Atelier"
+        eyebrow="Backoffice"
         title="Visão geral"
-        description="Como anda o ateliê — receita confirmada, lucro real e produção em andamento."
+        description="Receita confirmada, lucro real e produção em andamento."
       >
         <Button asChild className="rounded-full">
           <Link href="/admin/pedidos">

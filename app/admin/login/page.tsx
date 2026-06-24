@@ -35,7 +35,7 @@ export default async function LoginPage({
       {/* Painel da marca */}
       <div className="relative hidden overflow-hidden bg-gradient-warm lg:block">
         <div className="relative flex h-full flex-col justify-between p-12 text-white">
-          <span className="eyebrow text-white/80">Atelier · Backoffice</span>
+          <span className="eyebrow text-white/80">Backoffice</span>
           <div className="max-w-md">
             <h1 className="font-heading text-4xl font-semibold leading-tight">
               Presentes que guardam memória.

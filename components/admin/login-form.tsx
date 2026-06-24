@@ -54,7 +54,7 @@ export function LoginForm({ avisoSemAcesso }: { avisoSemAcesso?: boolean }) {
         ) : (
           <LogIn className="size-4" />
         )}
-        Entrar no atelier
+        Entrar no backoffice
       </Button>
     </form>
   );

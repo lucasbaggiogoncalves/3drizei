@@ -22,9 +22,9 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "3drizei · Atelier",
+  title: "3drizei · Backoffice",
   description:
-    "Backoffice do 3drizei — impressão 3D personalizada, feita com afeto.",
+    "Backoffice do 3drizei — impressão 3D personalizada, feito com afeto.",
 };
 
 export default function RootLayout({
