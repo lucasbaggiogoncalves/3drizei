@@ -25,7 +25,7 @@ export default async function ClientesPage() {
       <PageHeader
         eyebrow="Catálogo"
         title="Clientes"
-        description="Quem confia no seu trabalho — com histórico de pedidos e contato."
+        description="Histórico de pedidos e contato."
       >
         <ClienteFormDialog goToDetail />
       </PageHeader>
