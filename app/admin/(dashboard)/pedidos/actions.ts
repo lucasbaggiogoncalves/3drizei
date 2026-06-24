@@ -52,11 +52,14 @@ export async function savePedido(
       .select("id, produto_id, preco_venda_centavos, breakdown")
       .in("id", variacaoIds);
     for (const v of variacoes ?? []) {
-      const bd = (v.breakdown as { custoTotal?: number }) ?? {};
+      const bd = (v.breakdown as { custoTotal?: number; maoObra?: number }) ?? {};
+      // Custo de caixa: exclui a mão de obra (tempo próprio não é despesa).
+      // O preço sugerido segue cobrando a mão de obra; só o lucro deixa de subtraí-la.
+      const custoCaixa = Math.max(0, (bd.custoTotal ?? 0) - (bd.maoObra ?? 0));
       variacaoMap.set(v.id, {
         produtoId: v.produto_id,
         preco: v.preco_venda_centavos,
-        custo: bd.custoTotal ?? 0,
+        custo: custoCaixa,
         breakdown: v.breakdown,
       });
     }
