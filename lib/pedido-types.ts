@@ -18,6 +18,7 @@ export type PedidoPayload = {
   id?: string;
   clienteId: string | null;
   status: PedidoStatus;
+  descontoCentavos: number;
   observacoes: string;
   itens: PedidoItemInput[];
 };

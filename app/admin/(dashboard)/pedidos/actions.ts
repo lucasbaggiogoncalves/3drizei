@@ -62,9 +62,26 @@ export async function savePedido(
     }
   }
 
+  // Subtotal estimado (mesma lógica de preço dos itens) para limitar o desconto.
+  const subtotalEstimado = payload.itens.reduce((soma, item) => {
+    const variacao =
+      item.tipo === "catalogo" && item.variacaoId
+        ? variacaoMap.get(item.variacaoId)
+        : undefined;
+    const precoUnit =
+      item.precoUnitCentavos > 0 ? item.precoUnitCentavos : variacao?.preco ?? 0;
+    return soma + precoUnit * Math.max(1, Math.round(item.quantidade));
+  }, 0);
+
+  const desconto = Math.min(
+    Math.max(0, Math.round(payload.descontoCentavos)),
+    subtotalEstimado,
+  );
+
   const pedidoFields = {
     cliente_id: payload.clienteId,
     status: payload.status,
+    desconto_centavos: desconto,
     observacoes: payload.observacoes.trim() || null,
   };
 

@@ -101,9 +101,33 @@ export type Database = {
         }
         Relationships: []
       }
+      despesa_categorias: {
+        Row: {
+          ativo: boolean
+          created_at: string
+          id: string
+          nome: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          nome: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          nome?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       despesas: {
         Row: {
-          categoria: string
+          categoria_id: string
           created_at: string
           data: string
           descricao: string | null
@@ -114,7 +138,7 @@ export type Database = {
           valor_centavos: number
         }
         Insert: {
-          categoria: string
+          categoria_id: string
           created_at?: string
           data?: string
           descricao?: string | null
@@ -125,7 +149,7 @@ export type Database = {
           valor_centavos: number
         }
         Update: {
-          categoria?: string
+          categoria_id?: string
           created_at?: string
           data?: string
           descricao?: string | null
@@ -136,6 +160,13 @@ export type Database = {
           valor_centavos?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "despesas_categoria_id_fkey"
+            columns: ["categoria_id"]
+            isOneToOne: false
+            referencedRelation: "despesa_categorias"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "despesas_pedido_id_fkey"
             columns: ["pedido_id"]
@@ -288,39 +319,45 @@ export type Database = {
           cliente_id: string | null
           created_at: string
           custo_total_centavos: number
+          desconto_centavos: number
           id: string
           lucro_centavos: number | null
           numero: number
           observacoes: string | null
           ordem: number
           status: Database["public"]["Enums"]["pedido_status"]
-          total_centavos: number
+          subtotal_centavos: number
+          total_centavos: number | null
           updated_at: string
         }
         Insert: {
           cliente_id?: string | null
           created_at?: string
           custo_total_centavos?: number
+          desconto_centavos?: number
           id?: string
           lucro_centavos?: number | null
           numero?: number
           observacoes?: string | null
           ordem?: number
           status?: Database["public"]["Enums"]["pedido_status"]
-          total_centavos?: number
+          subtotal_centavos?: number
+          total_centavos?: number | null
           updated_at?: string
         }
         Update: {
           cliente_id?: string | null
           created_at?: string
           custo_total_centavos?: number
+          desconto_centavos?: number
           id?: string
           lucro_centavos?: number | null
           numero?: number
           observacoes?: string | null
           ordem?: number
           status?: Database["public"]["Enums"]["pedido_status"]
-          total_centavos?: number
+          subtotal_centavos?: number
+          total_centavos?: number | null
           updated_at?: string
         }
         Relationships: [
@@ -548,7 +585,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      pedido_status: "aprovado" | "modelagem" | "em_fabricacao"
+      pedido_status: "aprovado" | "modelagem" | "em_fabricacao" | "concluido"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -676,7 +713,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      pedido_status: ["aprovado", "modelagem", "em_fabricacao"],
+      pedido_status: ["aprovado", "modelagem", "em_fabricacao", "concluido"],
     },
   },
 } as const

@@ -11,16 +11,20 @@ type StatusMeta = {
 };
 
 /**
- * Os 3 estágios de produção, na ordem do fluxo.
+ * Os 3 estágios de produção (na ordem do fluxo) + "concluído" (terminal).
+ * O kanban exibe só os de produção; concluído sai do board.
  */
 export const PEDIDO_STATUS: StatusMeta[] = [
   { value: "aprovado", label: "Aprovado", tint: "bg-info-50 text-info-700", dot: "bg-info-500" },
   { value: "modelagem", label: "Modelagem", tint: "bg-copper-50 text-copper-700", dot: "bg-copper-400" },
   { value: "em_fabricacao", label: "Em fabricação", tint: "bg-terracotta-50 text-terracotta-700", dot: "bg-terracotta-500" },
+  { value: "concluido", label: "Concluído", tint: "bg-success-50 text-success-700", dot: "bg-success-500" },
 ];
 
-/** Colunas do kanban. */
-export const KANBAN_COLUMNS: StatusMeta[] = PEDIDO_STATUS;
+/** Colunas do kanban (sem o terminal "concluído"). */
+export const KANBAN_COLUMNS: StatusMeta[] = PEDIDO_STATUS.filter(
+  (s) => s.value !== "concluido",
+);
 
 const byValue = new Map(PEDIDO_STATUS.map((s) => [s.value, s]));
 

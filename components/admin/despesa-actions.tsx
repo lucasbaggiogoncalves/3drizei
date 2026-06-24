@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import type { Despesa } from "@/lib/data/despesas";
+import type { DespesaCategoria, DespesaListItem } from "@/lib/data/despesas";
 import { deleteDespesa } from "@/app/admin/(dashboard)/despesas/actions";
 import { DespesaFormDialog } from "@/components/admin/despesa-form-dialog";
 import { Button } from "@/components/ui/button";
@@ -19,9 +19,11 @@ import {
 
 export function DespesaActions({
   despesa,
+  categorias,
   pedidos,
 }: {
-  despesa: Despesa;
+  despesa: DespesaListItem;
+  categorias: DespesaCategoria[];
   pedidos: { id: string; numero: number; clienteNome: string | null }[];
 }) {
   const router = useRouter();
@@ -44,6 +46,7 @@ export function DespesaActions({
     <div className="flex items-center justify-end gap-1">
       <DespesaFormDialog
         despesa={despesa}
+        categorias={categorias}
         pedidos={pedidos}
         trigger={
           <Button size="icon" variant="ghost" className="size-8 rounded-full">
@@ -65,7 +68,7 @@ export function DespesaActions({
           <DialogHeader>
             <DialogTitle>Remover despesa</DialogTitle>
             <DialogDescription>
-              Remover a despesa de <strong>{despesa.categoria}</strong>?
+              Remover a despesa de <strong>{despesa.categoriaNome}</strong>?
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

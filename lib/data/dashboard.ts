@@ -16,6 +16,7 @@ const CONFIRMADOS = new Set<PedidoStatus>([
   "aprovado",
   "modelagem",
   "em_fabricacao",
+  "concluido",
 ]);
 
 export async function getDashboard(): Promise<DashboardData> {
@@ -34,7 +35,7 @@ export async function getDashboard(): Promise<DashboardData> {
   );
   const idsConfirmados = new Set(confirmados.map((p) => p.id));
 
-  const faturamento = confirmados.reduce((s, p) => s + p.total_centavos, 0);
+  const faturamento = confirmados.reduce((s, p) => s + (p.total_centavos ?? 0), 0);
   const lucroBruto = confirmados.reduce((s, p) => s + (p.lucro_centavos ?? 0), 0);
 
   const despesasVinculadas = (despesas ?? [])
@@ -55,7 +56,7 @@ export async function getDashboard(): Promise<DashboardData> {
     return {
       status: col.value,
       count: doEstagio.length,
-      total: doEstagio.reduce((s, p) => s + p.total_centavos, 0),
+      total: doEstagio.reduce((s, p) => s + (p.total_centavos ?? 0), 0),
     };
   });
 

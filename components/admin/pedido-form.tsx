@@ -299,15 +299,18 @@ export function PedidoForm({
   const [status, setStatus] = useState<PedidoStatus>(
     pedido?.pedido.status ?? "aprovado",
   );
+  const [desconto, setDesconto] = useState(pedido?.pedido.desconto_centavos ?? 0);
   const [observacoes, setObservacoes] = useState(pedido?.pedido.observacoes ?? "");
   const [itens, setItens] = useState<PedidoItemInput[]>(
     () => pedido?.itens.map(mapItem) ?? [],
   );
 
-  const total = useMemo(
+  const subtotal = useMemo(
     () => itens.reduce((s, i) => s + i.precoUnitCentavos * i.quantidade, 0),
     [itens],
   );
+  const descontoAplicado = Math.min(desconto, subtotal);
+  const total = subtotal - descontoAplicado;
 
   function update(index: number, patch: Partial<PedidoItemInput>) {
     setItens((prev) => prev.map((it, i) => (i === index ? { ...it, ...patch } : it)));
@@ -323,6 +326,7 @@ export function PedidoForm({
         id: pedido?.pedido.id,
         clienteId,
         status,
+        descontoCentavos: desconto,
         observacoes,
         itens,
       });
@@ -376,6 +380,10 @@ export function PedidoForm({
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Desconto</Label>
+            <CurrencyInput value={desconto} onChange={setDesconto} />
           </div>
           <div className="flex flex-col gap-2 sm:col-span-2">
             <Label>Observações</Label>
@@ -435,11 +443,18 @@ export function PedidoForm({
 
       <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-6 py-3">
-          <div>
-            <span className="eyebrow">Total</span>
-            <p className="font-heading text-xl font-semibold text-terracotta-700">
-              {formatBRL(total)}
-            </p>
+          <div className="flex items-end gap-5">
+            <div>
+              <span className="eyebrow">Total</span>
+              <p className="font-heading text-xl font-semibold text-terracotta-700">
+                {formatBRL(total)}
+              </p>
+            </div>
+            {descontoAplicado > 0 ? (
+              <p className="text-xs text-clay-500">
+                Subtotal {formatBRL(subtotal)} · desconto −{formatBRL(descontoAplicado)}
+              </p>
+            ) : null}
           </div>
           <div className="flex items-center gap-3">
             <Button

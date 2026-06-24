@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Plus, Save } from "lucide-react";
 import { toast } from "sonner";
-import type { Despesa } from "@/lib/data/despesas";
+import type { Despesa, DespesaCategoria } from "@/lib/data/despesas";
 import { saveDespesa } from "@/app/admin/(dashboard)/despesas/actions";
 import { formatPedidoNumero } from "@/lib/format";
 import { Button } from "@/components/ui/button";
@@ -30,10 +30,12 @@ const hoje = () => new Date().toISOString().slice(0, 10);
 
 export function DespesaFormDialog({
   despesa,
+  categorias,
   pedidos,
   trigger,
 }: {
   despesa?: Despesa;
+  categorias: DespesaCategoria[];
   pedidos: { id: string; numero: number; clienteNome: string | null }[];
   trigger?: React.ReactNode;
 }) {
@@ -41,7 +43,12 @@ export function DespesaFormDialog({
   const [open, setOpen] = useState(false);
   const [pending, start] = useTransition();
 
-  const [categoria, setCategoria] = useState(despesa?.categoria ?? "");
+  const ativas = categorias.filter(
+    (c) => c.ativo || c.id === despesa?.categoria_id,
+  );
+  const [categoriaId, setCategoriaId] = useState(
+    despesa?.categoria_id ?? ativas[0]?.id ?? "",
+  );
   const [tipo, setTipo] = useState<"recorrente" | "variavel">(
     (despesa?.tipo as "recorrente" | "variavel") ?? "variavel",
   );
@@ -54,7 +61,7 @@ export function DespesaFormDialog({
     start(async () => {
       const res = await saveDespesa({
         id: despesa?.id,
-        categoria,
+        categoriaId,
         tipo,
         valorCentavos: valor,
         data,
@@ -89,11 +96,18 @@ export function DespesaFormDialog({
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2 sm:col-span-2">
               <Label>Categoria</Label>
-              <Input
-                value={categoria}
-                onChange={(e) => setCategoria(e.target.value)}
-                placeholder="Filamento, energia, marketing..."
-              />
+              <Select value={categoriaId} onValueChange={setCategoriaId}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent>
+                  {ativas.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.nome}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex flex-col gap-2">
               <Label>Tipo</Label>
