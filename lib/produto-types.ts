@@ -43,7 +43,10 @@ export type ProdutoPayload = {
   slug: string;
   descricao: string;
   leadTimeDias: number;
+  /** Visível na loja pública (front, futuro). */
   ativo: boolean;
+  /** Aparece no seletor de produtos ao criar/editar pedidos no backoffice. */
+  disponivelPedidos: boolean;
   fotos: string[];
   personalizacao: PersonalizacaoField[];
   variacoes: VariacaoInput[];

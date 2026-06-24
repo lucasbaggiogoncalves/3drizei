@@ -73,6 +73,9 @@ export function ProductForm({
   const [descricao, setDescricao] = useState(produto?.descricao ?? "");
   const [leadTime, setLeadTime] = useState(produto?.lead_time_dias ?? 7);
   const [ativo, setAtivo] = useState(produto?.ativo ?? true);
+  const [disponivelPedidos, setDisponivelPedidos] = useState(
+    produto?.disponivel_pedidos ?? true,
+  );
   const [fotos, setFotos] = useState<string[]>(produto?.fotos ?? []);
   const [personalizacao, setPersonalizacao] = useState<PersonalizacaoField[]>(
     () =>
@@ -99,6 +102,7 @@ export function ProductForm({
       descricao,
       leadTimeDias: leadTime,
       ativo,
+      disponivelPedidos,
       fotos,
       personalizacao: personalizacao.filter((f) => f.label.trim()),
       variacoes,
@@ -175,10 +179,35 @@ export function ProductForm({
               onChange={(v) => setLeadTime(v ?? 0)}
             />
           </div>
-          <label className="flex items-end gap-3 pb-2">
-            <Switch checked={ativo} onCheckedChange={setAtivo} />
-            <span className="text-sm text-clay-700">Produto ativo (visível na loja)</span>
-          </label>
+          <div className="flex flex-col gap-3 rounded-xl border border-border/60 bg-clay-50/40 p-3 sm:col-span-2">
+            <p className="text-xs font-medium uppercase tracking-wide text-clay-500">
+              Visibilidade
+            </p>
+            <label className="flex cursor-pointer items-center justify-between gap-3">
+              <div>
+                <span className="text-sm font-medium text-clay-800">Loja pública</span>
+                <p className="text-xs text-clay-500">
+                  Produto aparece no front da loja (será usado quando a loja for
+                  desenvolvida).
+                </p>
+              </div>
+              <Switch checked={ativo} onCheckedChange={setAtivo} />
+            </label>
+            <div className="border-t border-border/50" />
+            <label className="flex cursor-pointer items-center justify-between gap-3">
+              <div>
+                <span className="text-sm font-medium text-clay-800">Disponível nos pedidos</span>
+                <p className="text-xs text-clay-500">
+                  Produto aparece no seletor ao criar ou editar pedidos no
+                  backoffice.
+                </p>
+              </div>
+              <Switch
+                checked={disponivelPedidos}
+                onCheckedChange={setDisponivelPedidos}
+              />
+            </label>
+          </div>
         </CardContent>
       </Card>
 

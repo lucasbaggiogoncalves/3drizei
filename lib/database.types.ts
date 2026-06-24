@@ -517,6 +517,7 @@ export type Database = {
           campos_internos: Json
           created_at: string
           descricao: string | null
+          disponivel_pedidos: boolean
           fotos: string[]
           id: string
           lead_time_dias: number
@@ -530,6 +531,7 @@ export type Database = {
           campos_internos?: Json
           created_at?: string
           descricao?: string | null
+          disponivel_pedidos?: boolean
           fotos?: string[]
           id?: string
           lead_time_dias?: number
@@ -543,6 +545,7 @@ export type Database = {
           campos_internos?: Json
           created_at?: string
           descricao?: string | null
+          disponivel_pedidos?: boolean
           fotos?: string[]
           id?: string
           lead_time_dias?: number

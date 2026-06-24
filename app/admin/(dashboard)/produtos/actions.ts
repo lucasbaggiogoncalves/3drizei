@@ -97,6 +97,7 @@ export async function saveProduto(
     lead_time_dias: payload.leadTimeDias,
     personalizacao_schema: payload.personalizacao as unknown as Json,
     ativo: payload.ativo,
+    disponivel_pedidos: payload.disponivelPedidos,
   };
 
   let produtoId = payload.id;

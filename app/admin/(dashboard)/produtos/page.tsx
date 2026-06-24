@@ -71,14 +71,26 @@ export default async function ProdutosPage() {
                     <Package className="size-8" />
                   </div>
                 )}
-                {!produto.ativo ? (
-                  <Badge
-                    variant="secondary"
-                    className="absolute left-3 top-3 bg-clay-200 text-clay-700"
-                  >
-                    Inativo
-                  </Badge>
-                ) : null}
+                {(!produto.ativo || !produto.disponivel_pedidos) && (
+                  <div className="absolute left-3 top-3 flex flex-col gap-1">
+                    {!produto.ativo && (
+                      <Badge
+                        variant="secondary"
+                        className="bg-clay-200 text-clay-700"
+                      >
+                        Fora da loja
+                      </Badge>
+                    )}
+                    {!produto.disponivel_pedidos && (
+                      <Badge
+                        variant="secondary"
+                        className="bg-danger-50 text-danger-700"
+                      >
+                        Indisponível p/ pedidos
+                      </Badge>
+                    )}
+                  </div>
+                )}
               </Link>
 
               <div className="flex flex-1 flex-col gap-2 p-4">

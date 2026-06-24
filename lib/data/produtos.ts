@@ -60,7 +60,7 @@ export async function getProdutosParaPedido(): Promise<ProdutoParaPedido[]> {
     .select(
       "id, nome, personalizacao_schema, produto_variacoes(id, nome, opcoes, preco_venda_centavos, ativo)",
     )
-    .eq("ativo", true)
+    .eq("disponivel_pedidos", true)
     .order("nome");
 
   return (data ?? []).map((p) => {
