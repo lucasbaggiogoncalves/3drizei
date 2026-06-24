@@ -75,14 +75,6 @@
   --shadow-warm-xl: 0 24px 50px rgba(45, 28, 18, 0.16), 0 8px 16px rgba(45, 28, 18, 0.08);
   --shadow-brand: 0 8px 22px rgba(194, 68, 15, 0.28);
 
-  /* Layer-line motif — echoes 3D-print extrusion layers */
-  --layerlines: repeating-linear-gradient(
-    180deg,
-    transparent 0,
-    transparent 5px,
-    rgba(148, 65, 31, 0.06) 5px,
-    rgba(148, 65, 31, 0.06) 6px
-  );
   --gradient-warm: linear-gradient(135deg, var(--terracotta-500) 0%, var(--copper-500) 100%);
   --gradient-cream: linear-gradient(180deg, var(--clay-50) 0%, var(--clay-100) 100%);
 
@@ -282,11 +274,6 @@
   letter-spacing: 0.14em;
   font-size: 0.6875rem;
   color: var(--clay-500);
-}
-
-/* The signature 3D-print layer-line texture */
-@utility layerlines {
-  background-image: var(--layerlines);
 }
 
 @utility bg-gradient-warm {

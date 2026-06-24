@@ -31,11 +31,10 @@ export async function getClientes(): Promise<ClienteListItem[]> {
     const { pedidos, ...cliente } = row as Cliente & {
       pedidos: { total_centavos: number; status: string }[];
     };
-    const validos = pedidos.filter((p) => p.status !== "cancelado");
     return {
       cliente: cliente as Cliente,
       pedidosCount: pedidos.length,
-      totalGasto: validos.reduce((s, p) => s + p.total_centavos, 0),
+      totalGasto: pedidos.reduce((s, p) => s + p.total_centavos, 0),
     };
   });
 }

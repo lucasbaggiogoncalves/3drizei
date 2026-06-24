@@ -219,41 +219,6 @@ export type Database = {
           },
         ]
       }
-      pedido_historico: {
-        Row: {
-          de_status: Database["public"]["Enums"]["pedido_status"] | null
-          em: string
-          id: string
-          para_status: Database["public"]["Enums"]["pedido_status"]
-          pedido_id: string
-          por: string | null
-        }
-        Insert: {
-          de_status?: Database["public"]["Enums"]["pedido_status"] | null
-          em?: string
-          id?: string
-          para_status: Database["public"]["Enums"]["pedido_status"]
-          pedido_id: string
-          por?: string | null
-        }
-        Update: {
-          de_status?: Database["public"]["Enums"]["pedido_status"] | null
-          em?: string
-          id?: string
-          para_status?: Database["public"]["Enums"]["pedido_status"]
-          pedido_id?: string
-          por?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "pedido_historico_pedido_id_fkey"
-            columns: ["pedido_id"]
-            isOneToOne: false
-            referencedRelation: "pedidos"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       pedido_itens: {
         Row: {
           breakdown_snapshot: Json
@@ -583,17 +548,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      pedido_status:
-        | "orcamento"
-        | "aprovado_sinal"
-        | "modelagem"
-        | "previa_enviada"
-        | "aprovado_impressao"
-        | "imprimindo"
-        | "pos_processamento"
-        | "pronto_saldo"
-        | "enviado"
-        | "cancelado"
+      pedido_status: "aprovado" | "modelagem" | "em_fabricacao"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -721,18 +676,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      pedido_status: [
-        "orcamento",
-        "aprovado_sinal",
-        "modelagem",
-        "previa_enviada",
-        "aprovado_impressao",
-        "imprimindo",
-        "pos_processamento",
-        "pronto_saldo",
-        "enviado",
-        "cancelado",
-      ],
+      pedido_status: ["aprovado", "modelagem", "em_fabricacao"],
     },
   },
 } as const

@@ -88,7 +88,7 @@ app/
       page.tsx            # dashboard (faturamento, lucro real, ticket médio)
       pedidos/            # kanban + criar/editar pedido
       produtos/           # CRUD de produtos + variações
-      clientes/           # CRUD de clientes + histórico
+      clientes/           # CRUD de clientes + pedidos anteriores
       despesas/           # CRUD de despesas
       calculadora/        # calculadora de preço avulsa
       configuracoes/      # materiais + parâmetros de preço (versionados)
@@ -115,8 +115,7 @@ proxy.ts                  # proteção de rota /admin (ex-middleware)
   registra a versão usada, então mudanças de parâmetro não alteram cálculos antigos.
 - **Snapshots no pedido**: `pedido_itens` congela preço, custo e breakdown no momento
   da venda.
-- **Histórico automático**: mover um card no kanban grava em `pedido_historico` via
-  trigger no banco.
+- **Kanban enxuto**: três estágios de produção — Aprovado → Modelagem → Em fabricação.
 - **Segurança**: RLS em todas as tabelas (admin total via `private.is_admin()`),
   proteção de rota no `proxy.ts` e guarda de role no layout do dashboard.
 

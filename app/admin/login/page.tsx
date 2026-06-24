@@ -34,7 +34,6 @@ export default async function LoginPage({
     <main className="grid min-h-dvh lg:grid-cols-2">
       {/* Painel da marca */}
       <div className="relative hidden overflow-hidden bg-gradient-warm lg:block">
-        <div className="layerlines absolute inset-0 opacity-40" />
         <div className="relative flex h-full flex-col justify-between p-12 text-white">
           <span className="eyebrow text-white/80">Atelier · Backoffice</span>
           <div className="max-w-md">

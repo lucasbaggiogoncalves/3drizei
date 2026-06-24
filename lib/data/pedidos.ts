@@ -4,8 +4,6 @@ import type { PedidoStatus } from "@/lib/pedido-status";
 
 export type Pedido = Database["public"]["Tables"]["pedidos"]["Row"];
 export type PedidoItem = Database["public"]["Tables"]["pedido_itens"]["Row"];
-export type PedidoHistorico =
-  Database["public"]["Tables"]["pedido_historico"]["Row"];
 
 export type KanbanPedido = {
   id: string;
@@ -72,7 +70,6 @@ export async function getPedidosSimple(): Promise<
 export type PedidoCompleto = {
   pedido: Pedido & { clientes: { id: string; nome: string } | null };
   itens: PedidoItem[];
-  historico: PedidoHistorico[];
 };
 
 export async function getPedido(id: string): Promise<PedidoCompleto | null> {
@@ -84,18 +81,13 @@ export async function getPedido(id: string): Promise<PedidoCompleto | null> {
     .maybeSingle();
   if (!pedido) return null;
 
-  const [{ data: itens }, { data: historico }] = await Promise.all([
-    supabase.from("pedido_itens").select("*").eq("pedido_id", id),
-    supabase
-      .from("pedido_historico")
-      .select("*")
-      .eq("pedido_id", id)
-      .order("em", { ascending: false }),
-  ]);
+  const { data: itens } = await supabase
+    .from("pedido_itens")
+    .select("*")
+    .eq("pedido_id", id);
 
   return {
     pedido: pedido as PedidoCompleto["pedido"],
     itens: itens ?? [],
-    historico: historico ?? [],
   };
 }

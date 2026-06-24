@@ -14,7 +14,6 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -87,12 +86,6 @@ export function AdminSidebar() {
           </SidebarGroup>
         ))}
       </SidebarContent>
-
-      <SidebarFooter>
-        <p className="eyebrow px-2 group-data-[collapsible=icon]:hidden">
-          Feito com afeto
-        </p>
-      </SidebarFooter>
     </Sidebar>
   );
 }

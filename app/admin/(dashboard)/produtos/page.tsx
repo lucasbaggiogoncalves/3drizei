@@ -67,7 +67,7 @@ export default async function ProdutosPage() {
                     className="size-full object-cover transition duration-300 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="layerlines grid size-full place-items-center text-clay-400">
+                  <div className="grid size-full place-items-center text-clay-400">
                     <Package className="size-8" />
                   </div>
                 )}

@@ -11,16 +11,11 @@ export type DashboardData = {
   porEstagio: { status: PedidoStatus; count: number; total: number }[];
 };
 
-// Estágios que contam como venda confirmada (excluem orçamento/cancelado).
+// Todos os estágios contam como venda confirmada (não há mais orçamento).
 const CONFIRMADOS = new Set<PedidoStatus>([
-  "aprovado_sinal",
+  "aprovado",
   "modelagem",
-  "previa_enviada",
-  "aprovado_impressao",
-  "imprimindo",
-  "pos_processamento",
-  "pronto_saldo",
-  "enviado",
+  "em_fabricacao",
 ]);
 
 export async function getDashboard(): Promise<DashboardData> {
@@ -53,9 +48,7 @@ export async function getDashboard(): Promise<DashboardData> {
     ? Math.round(faturamento / confirmados.length)
     : 0;
 
-  const emAberto = lista.filter(
-    (p) => p.status !== "cancelado" && p.status !== "enviado",
-  ).length;
+  const emAberto = lista.filter((p) => p.status === "em_fabricacao").length;
 
   const porEstagio = KANBAN_COLUMNS.map((col) => {
     const doEstagio = lista.filter((p) => p.status === col.value);

@@ -88,7 +88,7 @@ export default async function DashboardPage() {
         <StatCard
           label="Despesas totais"
           value={formatBRL(d.totalDespesas)}
-          hint={`${d.emAberto} pedido(s) em produção`}
+          hint={`${d.emAberto} pedido(s) em fabricação`}
           icon={Receipt}
           tint="bg-clay-100 text-clay-700"
         />

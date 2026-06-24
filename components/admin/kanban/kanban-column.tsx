@@ -19,7 +19,7 @@ export function KanbanColumn({
   const total = pedidos.reduce((s, p) => s + p.totalCentavos, 0);
 
   return (
-    <div className="flex w-72 shrink-0 flex-col">
+    <div className="flex min-w-0 flex-col">
       <div className="mb-2 flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <span className={cn("size-2 rounded-full", meta.dot)} />
@@ -32,7 +32,7 @@ export function KanbanColumn({
       <div
         ref={setNodeRef}
         className={cn(
-          "flex flex-1 flex-col gap-2 rounded-2xl border border-dashed border-transparent bg-clay-50/60 p-2 transition",
+          "flex min-h-[55vh] flex-1 flex-col gap-2 rounded-2xl border border-dashed border-transparent bg-clay-50/60 p-2 transition",
           isOver && "border-terracotta-300 bg-terracotta-50/60",
         )}
       >

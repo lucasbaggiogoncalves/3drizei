@@ -40,9 +40,7 @@ export default async function ClienteDetailPage({
 
   const { cliente, pedidos } = data;
   const endereco = enderecoLinha(cliente.endereco as Endereco | null);
-  const totalGasto = pedidos
-    .filter((p) => p.status !== "cancelado")
-    .reduce((s, p) => s + p.total_centavos, 0);
+  const totalGasto = pedidos.reduce((s, p) => s + p.total_centavos, 0);
 
   return (
     <>

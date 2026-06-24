@@ -296,7 +296,7 @@ export function PedidoForm({
     pedido?.pedido.cliente_id ?? null,
   );
   const [status, setStatus] = useState<PedidoStatus>(
-    pedido?.pedido.status ?? "orcamento",
+    pedido?.pedido.status ?? "aprovado",
   );
   const [observacoes, setObservacoes] = useState(pedido?.pedido.observacoes ?? "");
   const [itens, setItens] = useState<PedidoItemInput[]>(

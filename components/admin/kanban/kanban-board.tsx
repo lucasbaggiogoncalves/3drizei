@@ -39,7 +39,6 @@ export function KanbanBoard({ initialData }: { initialData: KanbanPedido[] }) {
     const map = new Map<PedidoStatus, KanbanPedido[]>();
     for (const col of KANBAN_COLUMNS) map.set(col.value, []);
     for (const p of pedidos) {
-      if (p.status === "cancelado") continue;
       map.get(p.status)?.push(p);
     }
     return map;
@@ -86,7 +85,7 @@ export function KanbanBoard({ initialData }: { initialData: KanbanPedido[] }) {
       onDragEnd={handleDragEnd}
       onDragCancel={() => setActiveId(null)}
     >
-      <div className="flex gap-4 overflow-x-auto pb-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {KANBAN_COLUMNS.map((col) => (
           <KanbanColumn
             key={col.value}

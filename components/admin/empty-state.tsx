@@ -12,7 +12,7 @@ export function EmptyState({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="layerlines flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border bg-clay-50/60 px-6 py-16 text-center">
+    <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border bg-clay-50/60 px-6 py-16 text-center">
       <span className="grid size-14 place-items-center rounded-full bg-terracotta-50 text-terracotta-600">
         <Icon className="size-6" />
       </span>

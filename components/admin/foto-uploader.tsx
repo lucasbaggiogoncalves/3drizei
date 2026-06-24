@@ -77,7 +77,7 @@ export function FotoUploader({
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
           className={cn(
-            "layerlines grid size-24 place-items-center rounded-xl border border-dashed border-border bg-clay-50 text-clay-500 transition hover:border-terracotta-300 hover:text-terracotta-600",
+            "grid size-24 place-items-center rounded-xl border border-dashed border-border bg-clay-50 text-clay-500 transition hover:border-terracotta-300 hover:text-terracotta-600",
           )}
         >
           {uploading ? (
