@@ -1,26 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative h-svh min-h-[36rem] w-full overflow-hidden">
+    <section className="relative h-svh min-h-[480px] max-h-[860px] w-full overflow-hidden">
       <Image
         src="/home/capa-hero.jpeg"
         alt="Peças personalizadas em impressão 3D da 3drizei: porta-retrato com foto de casal, plaquinha de nome e chaveiros com mapa em formato de coração"
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-[50%_35%]"
       />
 
-      {/* Scrim — garante legibilidade do texto sobre a foto */}
+      {/* Scrim — concentrado no terço superior onde fica o texto */}
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(10,6,4,0.48) 0%, rgba(10,6,4,0.22) 55%, rgba(10,6,4,0) 80%)",
+            "linear-gradient(to bottom, rgba(10,6,4,0.54) 0%, rgba(10,6,4,0.28) 42%, rgba(10,6,4,0) 68%)",
         }}
       />
 
@@ -34,9 +33,9 @@ export function Hero() {
         }}
       />
 
-      {/* Conteúdo — centralizado verticalmente descontando o navbar */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-6 pt-16 pb-36 text-center sm:px-10 sm:pb-48">
-        <h1 className="max-w-4xl font-heading text-4xl leading-[1.05] font-semibold tracking-tight text-white drop-shadow-md sm:text-5xl lg:text-6xl xl:text-7xl">
+      {/* Conteúdo — terço superior do hero, abaixo do navbar */}
+      <div className="absolute inset-0 flex flex-col items-center justify-start px-6 pt-28 text-center sm:px-10 sm:pt-32 lg:pt-36">
+        <h1 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-white drop-shadow-md sm:text-4xl lg:text-[2.75rem] xl:text-[3.5rem]">
           Presentes que contam{" "}
           <em className="font-medium text-terracotta-100 not-italic sm:italic">
             a sua história
@@ -47,19 +46,16 @@ export function Hero() {
           Decoração e presentes personalizados, modelados e impressos um a um.
         </p>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8">
           <Link
             href="#produtos"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-base font-semibold text-clay-950 shadow-warm-lg transition-colors hover:bg-clay-50 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-white/60"
+            className="group relative overflow-hidden rounded-full px-6 py-2 font-semibold text-white transition-all duration-500 hover:text-clay-50 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-white/60"
           >
-            Ver produtos
-            <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href="#depoimentos"
-            className="inline-flex h-12 items-center justify-center rounded-full border border-white/45 bg-white/10 px-7 text-base font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/60 hover:bg-white/18 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-white/60"
-          >
-            Depoimentos
+            <span
+              aria-hidden
+              className="absolute bottom-0 left-0 h-1 w-full rounded-t-full bg-terracotta-500 transition-all duration-500 group-hover:h-full"
+            />
+            <span className="relative">Ver produtos</span>
           </Link>
         </div>
       </div>
