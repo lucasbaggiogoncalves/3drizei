@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Fredoka, Nunito_Sans, Space_Mono } from "next/font/google";
+import { Fraunces, Nunito_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
+// Serif old-style, com calor artesanal e ar editorial — substitui a antiga
+// Fredoka (arredondada/cartoon) sem perder elegância.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 const nunitoSans = Nunito_Sans({
@@ -54,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${fredoka.variable} ${nunitoSans.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${nunitoSans.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <Providers>{children}</Providers>

@@ -151,7 +151,7 @@
 /* Expose brand ramps + fonts as Tailwind utilities (bg-terracotta-500, text-clay-600, font-heading, ...) */
 @theme inline {
   --font-sans: var(--font-nunito), system-ui, sans-serif;
-  --font-heading: var(--font-fredoka), var(--font-nunito), system-ui, sans-serif;
+  --font-heading: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
 
   /* shadcn semantic tokens */

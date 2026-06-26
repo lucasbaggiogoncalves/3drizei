@@ -8,18 +8,24 @@ import { cn } from "@/lib/utils";
 export function Logo({
   className,
   withDescriptor = false,
+  tone = "default",
 }: {
   className?: string;
   withDescriptor?: boolean;
+  /** "light" inverte o wordmark para uso sobre fundos escuros/laranja. */
+  tone?: "default" | "light";
 }) {
+  const light = tone === "light";
   return (
     <span className={cn("inline-flex flex-col leading-none", className)}>
       <span
         className="font-heading font-bold tracking-tight"
         style={{ fontSize: "1.35rem" }}
       >
-        <span className="text-terracotta-500">3d</span>
-        <span className="text-clay-950">rizei</span>
+        <span className={light ? "text-terracotta-100" : "text-terracotta-500"}>
+          3d
+        </span>
+        <span className={light ? "text-white" : "text-clay-950"}>rizei</span>
       </span>
       {withDescriptor ? (
         <span className="eyebrow mt-1">Decoração | Presentes</span>

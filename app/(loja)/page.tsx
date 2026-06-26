@@ -10,11 +10,10 @@ export const revalidate = 300;
 
 export default async function HomePage() {
   const produtos = await getHomeProdutos();
-  const destaque = produtos.find((p) => p.capa) ?? produtos[0];
 
   return (
     <>
-      <Hero destaque={destaque} />
+      <Hero />
       <Destaques produtos={produtos} />
       <SobDemanda />
       <Sobre />
